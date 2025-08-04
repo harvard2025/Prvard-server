@@ -1,0 +1,93 @@
+{% extends 'class/layout4.html' %}
+{% block head %}{% endblock %}
+
+
+{% block page_title %}
+{{class.Name}}
+{% endblock %}
+{% block id %}{{ university.Prvard_id }}{% endblock %}
+{% block img %}{{ student.Photo.url }}{% endblock %}
+{% block body %}
+
+
+<style>
+    .lessons{
+        width: 100%;
+    }
+    .lesson{
+        padding: 5px 0;
+        text-decoration: none;
+        background-color: black;
+        width: 100%;
+        color: white;
+        border: 1px solid white;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 5.2em;
+        transition: 0.2s;
+        animation: hr-l 0.4s;
+        border-radius: 7px;
+        border-left: 6px solid #a51c30;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-left: 6px solid #a51c30;
+        margin-left: 0vh;
+        font-size: 1em;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .lesson:hover{
+        background-color: rgb(53, 53, 53);
+    }
+
+    .btn-f{
+        text-decoration: none;
+        max-width: 160px;
+        padding: 15px 20px;
+        background-color: #a51c30;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        right: 10px;
+        top: 5px;
+        margin: 130px 15px 0 0 ;
+        position: fixed;
+        font-size: 1em;
+        transition: 0.4s;
+        cursor: pointer;
+        z-index: 997;
+    }
+    .btn-f:hover{
+        scale: 1.1;
+    }
+    .not{
+        text-align: center;
+        font-weight: 100;
+        font-family: cursive;
+        opacity: 0.6;
+    }
+
+</style>
+{% if is_admin %}
+    <a class="btn-f" href="{% url 'main:Cweek' class.id %}">Add new {{type}}</a>
+{% endif %}
+
+{% if lessons %}
+        <div class="lessons">
+            {% for lesson in lessons %}
+                <a class="lesson" href="{% url 'main:ShowW' lesson.id %}"><h1>{{type}} {{lesson.Number}}</h1></a>
+            {% endfor %}
+        </div>
+{% else %} 
+    <h2 class="not">There are no {{ type }} yet...</h2>
+{% endif %}
+
+
+
+ 
+
+
+{% endblock %}

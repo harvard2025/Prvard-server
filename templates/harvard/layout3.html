@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HarvardKey| Sign In</title>
+    <link rel="stylesheet" href="{% static 'harvard/css/layout3.css' %}">
+    <script src="{% static 'prvard/js/main.js' %}"></script>
+    {% block head %}{% endblock %}
+    <!-- <link href="https://ok3static.oktacdn.com/assets/js/sdk/okta-signin-widget/7.33.2/css/okta-sign-in.next.css" type="text/css" rel="stylesheet" integrity="sha384-fJyeHGzMxpU93EIEwEszWQiH+iw4MnNCcvkLPZ4PYPLlmRprsI4xxG8x/ofK5gGS" crossorigin="anonymous"/> -->
+    <!-- <link href="/api/internal/brand/theme/style-sheet?touch-point=SIGN_IN_PAGE&v=06d2668c7a6841679c3696c6f87c5143d9c287c28b4e9fcbae24428540ffa8a4e6c4b1b907967704aa42b4b5838694e4" rel="stylesheet" type="text/css"> -->
+    <link rel="shortcut icon" href="https://ok3static.oktacdn.com/bc/image/fileStoreRecord?id=fs01rj8w1c7r2CEe21d8" type="image/x-icon"/>
+    <!-- <link href="https://ok3static.oktacdn.com/assets/loginpage/css/loginpage-theme.c8c15f6857642c257bcd94823d968bb1.css" rel="stylesheet" type="text/css"/> -->
+</head>
+
+<body>
+<style>
+    .head{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding-top: 10px;
+    }
+    .head > p{
+        font-weight: 100;
+        font-family: serif;
+        color: rgba(0, 0, 0, 0.511);
+    }
+
+
+</style>
+<div class="head">
+    <img src="{% static 'harvard/img/s .png' %}" alt="HarvardKey" class="logo harvard_casprod1_1" width="35px"/>
+    <p class="p">Sign in with your account to access HarvardKey</p>
+</div>
+
+<div class="content">
+    {% block body %}{% endblock %}
+</div>
+
+</body>
+</html>

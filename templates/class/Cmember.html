@@ -1,0 +1,162 @@
+{% extends 'class/layout4.html' %}
+{% block head %}{% endblock %}
+
+
+{% block page_title %}
+{{class.Name}}
+{% endblock %}
+{% block id %}{{ university.Prvard_id }}{% endblock %}
+{% block img %}{{ student.Photo.url }}{% endblock %}
+{% block body %}
+
+
+<style>
+    form{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+    }
+    .search{
+        height: 50px;
+        width: 50%;
+        margin-top: 20px;
+        border: 1px solid black;
+        border-radius: 32px;
+        padding: 5px 20px;
+        font-size: 1.4em;
+    }
+    .btn-search {
+        background-color: black;
+        color: white;
+        height: 50px;
+        padding: 5px 40px;
+        border: 1px solid black;
+        border-radius: 32px;
+        margin-top: 20px;
+        font-size: 1.1em;
+        transition: 0.3s;
+
+    }
+    .btn-search:hover{
+        background-color: #a51c30;
+        color: rgb(255, 255, 255);
+        scale: 1.009;
+        
+    }
+    .cards{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        margin-top: 30px;
+    }
+    .card{
+        width: 30%;
+        hight: 150px;
+        background-color: rgb(36, 36, 36);
+        color: white;
+        padding: 10px 0px 0px 0px ;
+        transition: 0.3s;
+    }
+    .card:hover{
+        transform: translateY(-10px);
+    }
+    .top{
+        display: flex;
+
+    }
+    .t-left{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items:flex-start;
+    }
+    .img {
+        width: 70px;     
+        height: 70px;     
+        border-radius: 10px; 
+        overflow: hidden;  
+
+        border: 1px solid rgb(0, 0, 0);
+        border-image-outset: 50px;
+        margin: 10px;
+    }
+
+
+    .img > img {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+        animation: fadeIn 0.3s;
+    }
+    .btn_see{
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        background-color: white;
+        width: 100%;
+        border: none;
+        border-radius: 0px 0px 32px 32px;
+        margin-bottom: 0;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px ;
+        transition: 0.3s;
+        background-color: #a51c30;
+        color: rgb(255, 255, 255);
+
+    }
+    .btn_see:hover{
+        background-color: #a51c31aa;
+        color: rgb(255, 255, 255);
+        scale: 1.009;
+        
+    }
+
+</style>
+
+<form action="{% url 'main:Mclass' class.id %}" method="post">
+    {% csrf_token %}
+    <input autocomplete="off" autofocus type="search" name="q" placeholder="search by name" class="search">
+    <input type="submit" value="search" class="btn-search"> 
+</form>
+
+
+
+
+<div class="cards">
+    {% for student in students %}
+        <div class="card">
+            <div class="top">
+                <a class="img" href="{{student.Photo.url}}"><img src="{{student.Photo.url}}" alt="{{student.Name}}" width="50px"></a>
+                
+                <div class="t-left">
+                    <div class="name">
+                        {{student.Name}}
+                    </div>
+                    <div class="points">{{student.Points}} Points</div>
+                </div>
+            </div>
+            <div class="mail">
+                {{ student.Mail_1 }}
+            </div>
+            <a class="btn_see" href="{% url 'main:profile_o' student.Id %}">
+                See more
+            </a>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+ 
+
+
+{% endblock %}

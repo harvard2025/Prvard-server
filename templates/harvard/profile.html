@@ -1,0 +1,282 @@
+{% extends 'harvard/layout1.html' %}
+{% block page_title %}{{request.user.first_name}}{% endblock %}
+{% block id %}{{ university.Prvard_id }}{% endblock %}
+{% block img %}{{ user_st.Photo.url }}{% endblock %}
+{% block body %}
+<style>
+    :root {
+    --harvard-red: #A51C30;
+    --harvard-black: #000000;
+    --harvard-gray: #F5F5F5;
+    --harvard-text: #333333;
+    }
+    @keyframes fadeIn {
+        0%{
+            transform: translateY(-10px);
+            opacity: 0;
+        }
+        100%{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes pop {
+        0%{
+            scale: 1;
+        }
+        50%{
+            scale: 1.1;
+        }
+        100%{
+            scale: 1;
+        }
+    }
+    @keyframes inX {
+        0%{
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        100%{
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    .info{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+    .photo{
+        width: 300px;
+        height: 300px;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgb(255, 255, 255);
+        border-image-outset: 50px;
+        margin-top: 60px;
+        margin-bottom: 20px;
+        animation: fadeIn 0.3s;
+    }
+    .photo > img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        
+        
+    }
+    .name{
+        text-align: center;
+        color: white;
+        font-size: 3em;
+        font-weight: 700;
+        width: 100%;
+        font-family:initial;
+        animation: hr-l 0.5s;
+    }
+    .mail{
+        text-align: center;
+        color: white;
+        font-size: 2em;
+        width: 100%;
+        font-family:sans-serif;
+        animation: hr-l 0.5s;
+
+    }
+    .points{
+        margin: 20px;
+        background: linear-gradient(yellow, rgb(255, 183, 0));
+        padding: 10px 80px ;
+        border-radius: 32px;
+        font-weight: 800;
+        color: rgb(0, 0, 0);
+        margin-bottom: 50px;
+        animation: pop 0.5s;
+    }
+    .cards{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+
+    .card{
+        background-color: white;
+        width: 20%;
+
+        border-radius: 32px;
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        margin-bottom: 10px;
+        animation: inX 0.3s;
+    }
+
+    .card-title{
+        font-size: 1.6em;
+        margin: 10px;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+    .card-id{
+        margin-bottom: 10px;
+    }
+    .card-btn{
+        text-align: center;
+        text-decoration: none;
+        background-color: black;
+        color: white;
+        padding: 10px 0 10px 0;
+        width: 100%;
+        height: 20px;
+        border-radius: 0 0 32px  32px;
+        transition: 0.2s;
+        
+    }
+    .card-btn:hover{
+        background-color: rgb(83, 83, 83);
+    }
+    .btn-f{
+        text-decoration: none;
+        max-width: 160px;
+        padding: 15px 20px;
+        background-color: #a51c30;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        right: 10px;
+        top: 5px;
+        margin: 130px 15px 0 0 ;
+        position: fixed;
+        font-size: 1.2em;
+        transition: 0.4s;
+    }
+    .btn-f:hover{
+        scale: 1.1;
+    }
+    .Title{
+        margin-bottom: 60px;
+        color: white;
+    }
+
+    .cards{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .card{
+        border: 1px solid rgb(32, 32, 32);
+        width: 30%;
+
+        border-radius: 32px;
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        margin-bottom: 10px;
+        animation: inX 0.3s;
+
+        
+        transition: 0.3s;
+        border: 1px solid rgb(0, 0, 0);
+        box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.233);
+        background: linear-gradient(white, rgb(237, 237, 237));
+    }
+    .card:hover{
+        border-left: 5px solid #a51c30;
+        transform: translateY(-5px);
+        
+    }
+
+    .card-title{
+        font-size: 1.6em;
+        margin: 10px;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+    .card-id{
+        margin-bottom: 10px;
+    }
+    .card-btn{
+        text-align: center;
+        text-decoration: none;
+        background-color: #a51c30;
+        color: white;
+        padding: 10px 0 10px 0;
+        width: 100%;
+        height: 20px;
+        border-radius: 0 0 32px  32px;
+        transition: 0.2s;
+        background: linear-gradient(#a51c30, #72111f);
+        
+    }
+    .card-btn:hover{
+        background-color: rgb(83, 83, 83);
+        background-color: #721120bb;
+        opacity: 0.8;
+        
+    }
+
+    .card {
+    border-radius: 4px;
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: none;
+    padding: 20px;
+    }
+    .card-btn {
+    background: var(--harvard-red);
+    border-radius: 4px;
+    }
+    .not{
+        font-weight: 100;
+        font-family: cursive;
+        opacity: 0.6;
+        color: white;
+    }
+</style>
+{% if is_Admin %}
+    {% if other %}
+        <a class="btn-f" href="{% url 'main:delete_u' user.id %}">Delete</a>
+    {% endif %}
+{% endif %}
+<div class="info">
+    <div class="photo">
+        <img src="{{ student.Photo.url }}" alt="Harvard" width="300px" class="">
+    </div>
+    <div class="name">{{user.first_name}}</div>
+    <div class="mail">{{user.email}}</div>
+    <div class="points">{{student.Points}} Points</div>
+    <h1 class="Title title">Classes</h1>
+    <div class="cards">
+        {% if classes %}
+            {% for class in classes %}
+                <div class="card">
+                    <div class="card-title">{{ class.Name }}</div>
+                    <div class="card-id">{{ class.id }}.0p</div>
+                    {% if other %}
+                        <a href="{% url 'main:entroll' class.id %}" class="card-btn">Entroll</a>
+                    {% else %}
+                        <a href=" {% url 'main:Oclass' class.id %}" class="card-btn">Continue</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %} 
+            <h2 class="not">no Classes yet...</h2>
+        {% endif %}
+    </div>
+    
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,7 @@
+Django>=5.0
+djangorestframework>=3.14
+gunicorn
+psycopg2-binary
+markdown
+datetime
+gunicorn

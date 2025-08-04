@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvard</title>
+    <link rel="stylesheet" href="{% static 'harvard/css/layout1.css' %}">
+    <script src="{% static 'prvard/js/main.js' %}"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="head">
+        <a href="{% url 'main:index' %}" class="c-r"><img src="{% static 'harvard/img/harvard.png' %}" alt="Harvard" width="120px"></a>
+        <div class="title">{% block page_title %}{% endblock %}</div>
+        <div class="c-l">
+            <p class="id">{% block id %}{% endblock %}</p>
+            <div class="profile">
+                <img src="{% block img %}{% endblock %}" alt="Harvard" width="50px" class="T">
+                    <div class="profile-menu">
+                        <a href="{% url 'main:profile' %}">Profile</a>
+                        <a href="{% url 'main:leave' %}">Leave</a>
+                        {% if is_admin %}
+                            <a href="{% url 'main:delete' university.id %}">Deleat</a>
+                        {% endif %}
+                        <a href="{% url 'main:logout' %}">Logout</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        {% block body %}{% endblock %}
+    </div>
+
+<script>
+    const profile = document.querySelector('.profile');
+    const menu = document.querySelector('.profile-menu');
+
+    profile.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+        } else {
+        menu.style.display = 'block';
+        }
+    });
+
+    document.addEventListener('click', function () {
+        menu.style.display = 'none';
+    });
+</script>
+</body>
+</html>

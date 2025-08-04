@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prvard</title>
+    <link rel="stylesheet" href="{% static 'prvard/css/style.css' %}">
+
+    <style>
+      *{
+          box-sizing: border-box;
+      }
+
+      body{
+          background-color: rgb(0, 0, 0);
+          color: white;
+          
+      }
+      .img{
+          width: 100px;
+          position: absolute;
+          left: 0;
+          top: 0;
+      }
+      .content{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          height: 100vh;
+      }
+      .prvard{
+          color: red;
+          font-size: 3em;
+          font-family:cursive;
+          font-weight: 300;
+          font-style: oblique;
+          height: auto;
+          margin-bottom: 10px;
+          
+      }
+      .title{
+          text-align: center;
+          font-size: 1.4em;
+          font-family: monospace;
+      }
+
+    </style>
+</head>
+<body>
+
+    <img src="{% static 'prvard/img/prroer.png' %}" alt="" class="img" width="100">
+    <div class="content">
+        <div class="prvard">Prvard</div>
+        <p class="title">Not responsive for mobile devices</p>
+    </div>
+
+
+
+    <script>
+        if (window.innerWidth >= 768) {
+        window.location.href = "/";
+        }
+    </script>
+</body>
+</html>

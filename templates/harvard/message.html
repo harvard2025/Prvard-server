@@ -1,0 +1,109 @@
+{% extends 'harvard/layout2.html' %}
+{% block head %}{% endblock %}
+
+
+{% block page_title %}
+Send a message
+{% endblock %}
+{% block id %}{{ university.Prvard_id }}{% endblock %}
+{% block img %}{{ student.Photo.url }}{% endblock %}
+{% block body %}
+
+
+<style>
+    @keyframes fadeIn {
+        0%{
+            transform: translateY(-10px);
+            opacity: 0;
+        }
+        100%{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    @keyframes hr {
+        0%{
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        100%{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes pop {
+        0%{
+            scale: 1;
+        }
+        50%{
+            scale: 1.1;
+        }
+        100%{
+            scale: 1;
+        }
+    }
+    @keyframes inX {
+        0%{
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        100%{
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    .btn-f{
+        width: 160px;
+        height: 50px;
+        /* padding: 20px 80px; */
+        background-color: #a51c30;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        right: 10px;
+        top: 5px;
+        margin: 130px 15px 0 0 ;
+        position: fixed;
+        font-size: 1.4em;
+        transition: 0.4s;
+    }
+    .btn-f:hover{
+       
+        scale: 1.1;
+    }
+    .field{
+        width: 60%;    
+        height: 50px;
+        margin-top: 20px;
+        font-size: 1.4em;
+        border: 1px solid black;
+        border-radius: 32px;
+        padding: 5px 15px ;
+        animation: inX 0.5s;
+    }
+    .to{
+        margin-top: 50px;
+    }
+    .message{
+        height: 300px;
+        padding-top: 10px;
+    }
+</style>
+<form action="{% url 'main:message' %}" method="post">
+    {% csrf_token %}
+    <input type="email"  name="to" placeholder="To:" class="to field">   
+    <input type="hidden" name="from" class="from field" >
+    <input type="text"  name="title" placeholder="Title:" class="title-f field"> 
+    <textarea name="message" placeholder="Message:" class="message field"></textarea>
+    <input type="submit" value="Send"  class="btn-f">
+</form>
+
+{% endblock body %}

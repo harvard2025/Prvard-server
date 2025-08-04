@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvard</title>
+    <link rel="stylesheet" href="{% static 'harvard/css/index.css' %}">
+    <script src="{% static 'prvard/js/main.js' %}"></script>
+</head>
+<body>
+    
+    <div class="head">
+        <p class="h-p">
+            This Website is created by Prroer. <br>
+            Prvard is full educational platform that's like a university, you choose harvard theme. <br>
+            If you need help please send email to prvard@gmail.com
+        </p>
+        <div class="h-d-btn">
+            <a class="h-btn" href="#">
+                More informations
+            </a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="c-header">
+            <div class="c-r">
+                <a href="{% url 'main:index' %}"><img src="{% static 'harvard/img/harvard.png' %}" alt="Harvard" width="120px"></a>
+            </div>
+            <div class="c-l">
+                <p class="c-p">{{ university.Prvard_id }}</p>
+                <div class="profile">
+                    <img src="{{ student.Photo.url }}" alt="Harvard" width="50px" class="T">
+                      <div class="profile-menu">
+                            <a href="{% url 'main:profile' %}">Profile</a>
+                            <a href="{% url 'main:leave' %}">Leave</a>
+                            {% if is_admin %}
+                                <a href="{% url 'main:delete' university.id %}">Deleat</a>
+                            {% endif %}
+                            <a href="{% url 'main:logout' %}">Logout</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="c-body">
+            Welcome To Harvard
+        </div>
+    </div>
+    <main>
+        <div class="slide">
+            <div class="navs">
+                <a href="{% url 'main:inbox' %}">Inbox</a>
+                <a href="{% url 'main:send' %}">Send</a>
+                <a href="{% url 'main:message' %}">Message</a>
+                <a href="{% url 'main:members' %}">Members</a>
+            </div>
+        </div>
+        <div class="classes">
+            <a href="{% url 'main:all_classes' %}" class="classe-btn">Entroll more</a>
+            <h1 class="m-title">Your Classes</h1>
+            <div class="cards">
+                {% if classes %}
+                    {% for class in classes %}
+                        <div class="card">
+                            <div class="card-title">{{ class.Name }}</div>
+                            <div class="card-id">{{ class.id }}.0p</div>
+                            <a href="{% url 'main:Oclass' class.id %}" class="card-btn">Continue</a>
+                        </div>
+                    {% endfor %}
+                {% else %} 
+                    <h2 class="not">There are no Classes yet...</h2>
+                {% endif %}
+                
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+<script>
+    const profile = document.querySelector('.profile');
+    const menu = document.querySelector('.profile-menu');
+
+    profile.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+        } else {
+        menu.style.display = 'block';
+        }
+    });
+
+    document.addEventListener('click', function () {
+        menu.style.display = 'none';
+    });
+</script>
+
+</body>
+</html>

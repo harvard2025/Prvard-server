@@ -1,0 +1,714 @@
+{% extends 'class/layout4.html' %}
+{% block head %}{% endblock %}
+
+{% block page_title %}
+{{class.Name}}
+{% endblock %}
+{% block id %}{{ university.Prvard_id }}{% endblock %}
+{% block img %}{{ student.Photo.url }}{% endblock %}
+{% block body %}
+
+<style>
+    /* Reset and base styles */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+        color: #ffffff;
+        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    /* Main container - centered */
+    .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        width: 100%;
+    }
+
+    /* Chat app wrapper */
+    .chat-app {
+        width: 100%;
+        max-width: 1200px;
+        height: 90vh;
+        min-height: 600px;
+        background: rgba(15, 15, 15, 0.95);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+        display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 280px;
+        background: rgba(20, 20, 20, 0.95);
+        backdrop-filter: blur(10px);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+    }
+
+    .sidebar-header {
+        padding: 20px;
+        background: linear-gradient(135deg, #a51c30 0%, #8b1628 100%);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .harvard-logo {
+        width: 40px;
+        height: 40px;
+        background: #ffffff;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #a51c30;
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+    .class-info h2 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: white;
+    }
+
+    .class-info p {
+        font-size: 13px;
+        opacity: 0.9;
+    }
+
+    .nav-menu {
+        padding: 20px 0;
+        flex: 1;
+    }
+
+    .nav-item {
+        padding: 12px 20px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .nav-item:hover {
+        background: rgba(165, 28, 48, 0.1);
+        border-right: 3px solid #a51c30;
+        color: #ffffff;
+    }
+
+    .nav-item.active {
+        background: rgba(165, 28, 48, 0.2);
+        border-right: 3px solid #a51c30;
+        color: #ffffff;
+    }
+
+    .nav-icon {
+        width: 20px;
+        text-align: center;
+        opacity: 0.7;
+    }
+
+    /* Main Chat Area */
+    .chat-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background: #0f0f0f;
+        position: relative;
+    }
+
+    .chat-header {
+        background: rgba(20, 20, 20, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 16px 24px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 0;
+    }
+
+    .chat-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .chat-title h1 {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        background: #4ade80;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .user-id {
+        background: rgba(165, 28, 48, 0.1);
+        padding: 6px 12px;
+        border-radius: 16px;
+        font-size: 12px;
+        color: #a51c30;
+        border: 1px solid rgba(165, 28, 48, 0.3);
+    }
+
+    /* Messages Area */
+    .messages-container {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px 24px 100px;
+        scroll-behavior: smooth;
+        position: relative;
+    }
+
+    .messages-container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .messages-container::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .messages-container::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+    }
+
+    .messages {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        max-width: 800px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .message {
+        animation: slideInMessage 0.4s ease-out;
+        opacity: 0;
+        animation-fill-mode: forwards;
+    }
+
+    .message:nth-child(1) { animation-delay: 0.1s; }
+    .message:nth-child(2) { animation-delay: 0.2s; }
+    .message:nth-child(3) { animation-delay: 0.3s; }
+    .message:nth-child(n+4) { animation-delay: 0s; }
+
+    .message-bubble {
+        background: rgba(40, 40, 40, 0.9);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 16px 20px;
+        max-width: 75%;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        transition: all 0.2s ease;
+    }
+
+    .message-bubble:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        border-color: rgba(165, 28, 48, 0.3);
+    }
+
+    .info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 8px;
+    }
+
+    .img-d {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid rgba(165, 28, 48, 0.5);
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .img-d:hover {
+        border-color: #a51c30;
+        transform: scale(1.05);
+    }
+
+    .img-d img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.2s ease;
+    }
+
+    .info p {
+        font-weight: 600;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+    }
+
+    .message-time {
+        margin-left: auto;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .mm {
+        font-size: 16px;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.95);
+        margin: 0;
+        font-weight: 400;
+        word-wrap: break-word;
+    }
+
+    /* Input area - fixed at bottom */
+    .chat-input-area {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(20, 20, 20, 0.95);
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 20px 24px;
+    }
+
+    .form1 {
+        max-width: 800px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    form {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(40, 40, 40, 0.8);
+        border-radius: 25px;
+        padding: 8px 12px 8px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.2s ease;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        width: 100%;
+    }
+
+    form:focus-within {
+        border-color: rgba(165, 28, 48, 0.5);
+        box-shadow: 0 0 0 3px rgba(165, 28, 48, 0.1), 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .search {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #ffffff;
+        font-size: 16px;
+        padding: 12px 0;
+    }
+
+    .search::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-search {
+        background: linear-gradient(135deg, #a51c30 0%, #8b1628 100%);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .btn-search:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(165, 28, 48, 0.4);
+        background: linear-gradient(135deg, #b51d35 0%, #9b1a2c 100%);
+    }
+
+    .btn-search:active {
+        transform: scale(0.95);
+    }
+
+    .btn-search::before {
+        content: "➤";
+        font-size: 16px;
+    }
+
+    /* Welcome banner */
+    .welcome-banner {
+        background: linear-gradient(135deg, rgba(165, 28, 48, 0.1) 0%, rgba(139, 22, 40, 0.1) 100%);
+        border: 1px solid rgba(165, 28, 48, 0.3);
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 24px;
+        text-align: center;
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    .welcome-banner h2 {
+        color: #a51c30;
+        margin: 0 0 8px 0;
+        font-size: 18px;
+    }
+
+    .welcome-banner p {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+        font-size: 14px;
+    }
+
+    /* Animations */
+    @keyframes slideInMessage {
+        from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.7;
+            transform: scale(1.1);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive design */
+    
+    /* Large screens */
+    @media (min-width: 1400px) {
+        .chat-app {
+            max-width: 1400px;
+        }
+        
+        .messages {
+            max-width: 1000px;
+        }
+        
+        .form1 {
+            max-width: 1000px;
+        }
+    }
+    
+    /* Tablets */
+    @media (max-width: 1024px) {
+        .main-container {
+            padding: 10px;
+        }
+        
+        .chat-app {
+            height: 95vh;
+        }
+        
+        .sidebar {
+            width: 240px;
+        }
+        
+        .messages {
+            max-width: 100%;
+        }
+        
+        .message-bubble {
+            max-width: 80%;
+        }
+    }
+    
+    /* Mobile */
+    @media (max-width: 768px) {
+        .main-container {
+            padding: 5px;
+        }
+        
+        .chat-app {
+            height: 98vh;
+            border-radius: 10px;
+        }
+        
+        .sidebar {
+            display: none; /* Hide sidebar on mobile */
+        }
+        
+        .chat-header {
+            padding: 12px 16px;
+        }
+        
+        .chat-title h1 {
+            font-size: 18px;
+        }
+        
+        .messages-container {
+            padding: 16px 12px 100px;
+        }
+        
+        .message-bubble {
+            max-width: 85%;
+            padding: 12px 16px;
+        }
+        
+        .chat-input-area {
+            padding: 16px 12px;
+        }
+        
+        .form {
+            padding: 6px 8px 6px 16px;
+        }
+        
+        .search {
+            font-size: 16px;
+        }
+        
+        .btn-search {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .img-d {
+            width: 32px;
+            height: 32px;
+        }
+        
+        .mm {
+            font-size: 15px;
+        }
+    }
+    
+    /* Small mobile */
+    @media (max-width: 480px) {
+        .main-container {
+            padding: 2px;
+        }
+        
+        .chat-app {
+            height: 99vh;
+            border-radius: 5px;
+        }
+        
+        .message-bubble {
+            max-width: 90%;
+        }
+        
+        .chat-input-area {
+            padding: 12px 8px;
+        }
+        
+        .btn-search {
+            width: 36px;
+            height: 36px;
+        }
+    }
+</style>
+
+<div class="main-container">
+    <div class="chat-app">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="harvard-logo">H</div>
+                <div class="class-info">
+                    <h2>{{class.Name}}</h2>
+                    <p>Harvard University</p>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <div class="nav-item">
+                    <div class="nav-icon">📚</div>
+                    <span>Class</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">👥</div>
+                    <span>Members</span>
+                </div>
+                <div class="nav-item active">
+                    <div class="nav-icon">💬</div>
+                    <span>Chat</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">💻</div>
+                    <span>Code Space</span>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">🐙</div>
+                    <span>GitHub</span>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="chat-main">
+            <header class="chat-header">
+                <div class="chat-title">
+                    <h1>Class Chat</h1>
+                    <div class="status-dot"></div>
+                </div>
+                <div class="user-info">
+                    <div class="user-id">{{ university.Prvard_id }}</div>
+                </div>
+            </header>
+
+            <div class="messages-container" id="messagesContainer">
+                {% if not messages %}
+                <div class="welcome-banner">
+                    <h2>Welcome to {{class.Name}}</h2>
+                    <p>Start the conversation by sending your first message!</p>
+                </div>
+                {% endif %}
+
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message">
+                            <div class="message-bubble">
+                                <div class="info">
+                                    <a class="img-d" href="{% url 'main:profile_o' message.id %}">
+                                        <img src="{{message.img_url}}" alt="{{message.name}}" loading="lazy">
+                                    </a>
+                                    <p>{{message.name}}</p>
+                                    <span class="message-time">Now</span>
+                                </div>
+                                <div class="mm">{{message.message}}</div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="chat-input-area">
+                <div class="form1">
+                    <form action="{% url 'main:ACclass' id %}" method="post">
+                        {% csrf_token %}
+                        <input autocomplete="off" autofocus type="text" name="message" placeholder="Send a message..." class="search" maxlength="500">
+                        <button type="submit" class="btn-search" aria-label="Send message"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-scroll to bottom when new messages are added
+document.addEventListener('DOMContentLoaded', function() {
+    const messagesContainer = document.getElementById('messagesContainer');
+    if (messagesContainer) {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    // Focus on input
+    const messageInput = document.querySelector('.search');
+    if (messageInput) {
+        messageInput.focus();
+    }
+});
+
+// Add smooth scrolling behavior for new messages
+function scrollToBottom() {
+    const messagesContainer = document.getElementById('messagesContainer');
+    if (messagesContainer) {
+        messagesContainer.scrollTo({
+            top: messagesContainer.scrollHeight,
+            behavior: 'smooth'
+        });
+    }
+}
+
+// Handle form submission with loading state
+document.querySelector('form').addEventListener('submit', function(e) {
+    const submitBtn = this.querySelector('.btn-search');
+    const input = this.querySelector('.search');
+    
+    if (input.value.trim() === '') {
+        e.preventDefault();
+        return;
+    }
+    
+    // Add loading state
+    submitBtn.style.opacity = '0.7';
+    submitBtn.style.transform = 'scale(0.95)';
+    
+    // Reset form after a short delay to show the loading state
+    setTimeout(() => {
+        input.value = '';
+    }, 100);
+});
+
+// Handle viewport changes for mobile browsers
+function handleViewportChange() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+window.addEventListener('resize', handleViewportChange);
+window.addEventListener('orientationchange', handleViewportChange);
+handleViewportChange();
+
+// Add typing indicator (optional)
+let typingTimer;
+document.querySelector('.search').addEventListener('keyup', function() {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(() => {
+        // Clear typing indicator
+    }, 1000);
+});
+</script>
+
+{% endblock %}

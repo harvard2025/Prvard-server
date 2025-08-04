@@ -1,0 +1,158 @@
+{% extends 'harvard/layout3.html' %}
+{% load static %}
+{% block head %}{% endblock %}
+
+
+{% block page_title %}
+Create Class
+{% endblock %}
+{% block id %}{{ university.Prvard_id }}{% endblock %}
+{% block img %}{{ student.Photo.url }}{% endblock %}
+{% block body %}
+<style>
+    .all{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+    form{
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        margin-top: 8px;
+        border: none;
+        border-radius: 10px;
+        padding-bottom: 20px;
+    }
+    .ii{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        gap: 10px;
+       
+    }
+    .input{
+        width: 83%;
+        height: 30px;
+        font-size: 1em;
+        font-weight: 100;
+        margin-bottom: 5px;
+        border: 1px solid rgb(118, 118, 118);
+        border-radius: 5px;
+        padding: 5px 10px ;
+
+        
+    }
+    .T{
+        width: 100%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 20px;
+        border-bottom: 1px solid rgba(118, 118, 118, 0.311);
+    }
+    .T > img{
+        width: 215px;
+
+    }
+    .select{
+        margin-bottom: 40px;
+        font-weight: 400;
+        min-height: 40px;
+        width: 100%;
+    }
+    .btn-s{
+        background-color: rgb(118, 118, 118);
+        color: white;
+
+        min-height: 40px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1em;
+        transition: 0.3s;
+        margin-right: 40px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .btn-s:hover{
+        background-color: rgb(86, 86, 86);
+    }
+
+    .iii{
+        padding-left: 40px;
+        padding-bottom: 30px;
+
+    }
+    .iii > h1{
+        font-size: 1.5em;
+        font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+        font-weight: 200;
+        margin-bottom: 30px;
+       
+        
+    }
+    .end{
+        text-decoration: none;
+        color: rgb(118, 118, 118);
+        margin-top: 20px;
+    }
+    .end:hover{
+        text-decoration:underline;
+    }
+    .Error{
+        color: rgb(119, 0, 0);
+    }
+    .label{
+        font-weight: 300;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+</style>
+
+
+<!-- <form action="{% url 'main:login' %}" method="post">
+    {% csrf_token %}
+    <div class="sign">Sign In</div>
+    <div class="message">{{message}}</div>
+    <div class="label">Username</div>
+    <input type="text" name="username" class="input">
+    <div class="label">Password</div>
+    <input type="password" name="password" class="input">
+    <input type="submit" value="Sign In" class="btn">
+    <a class="other" href="{% url 'main:register' %}">Register?</a>
+            </form> -->
+<div class="all">
+    <form action="{% url 'main:Oclass' id %}" method="post">
+        <h1 class="T"><img src="{% static 'harvard/img/key.png' %}" alt="Harvard Key" width="200px"></h1>
+        {% csrf_token %}
+        
+        <div class="iii">
+            <h1>Sign In</h1>
+            
+            <div class="ii">
+                <div class="label">Username</div>
+                <input type="text" name="username" class="input name" >
+            </div>
+<!-- 
+            <div class="ii">
+                <div class="label">Password</div>
+                <input type="password" name="password" class="input">
+            </div> -->
+            <div class="Error">{{ message }}</div>
+            <div class="ii"><input type="submit" value="Next" class="btn-s"></div>
+
+            <a class="end" href="https://key.harvard.edu/account-recovery/request-login-name-reminder">Forgot Username?</a>
+
+        </div>
+        
+        
+    </form>
+</div>
+
+
+{% endblock %}

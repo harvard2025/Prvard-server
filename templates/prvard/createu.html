@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prvard</title>
+    <link rel="stylesheet" href="{% static 'prvard/css/createu.css' %}">
+    <script src="{% static 'prvard/js/main.js' %}"></script>
+    
+</head>
+<body>
+    <img src="{% static 'prvard/img/prroer.png' %}" alt="" class="img" width="100">
+    <div class="profile-menu">
+        <a href="{% url 'main:index' %}">Home</a>
+        <a href="{% url 'main:logout' %}">Logout</a>
+    </div>
+       <div class="content">
+        <div class="prvard">Prvard</div>
+        <p class="title">CHOOSE YOUR UNIVERSITY</p>
+        <div class="choices">
+            <a href="{% url 'main:createu_f' 'Yale' %}" class="one choice"><img src="{% static 'prvard/img/yale.png' %}" alt="" width="70px"></a>
+            <a href="{% url 'main:createu_f' 'Harvard' %}" class="one choice"><img src="{% static 'prvard/img/harvard.png' %}" alt="" width="70px"></a>
+            <a href="{% url 'main:createu_f' 'MIT' %}" class="two choice"><img src="{% static 'prvard/img/mit.png' %}" alt="" width="70px"></a>
+        </div>
+    </div>
+
+
+<script>
+    const profile = document.querySelector('.img');
+    const menu = document.querySelector('.profile-menu');
+
+    profile.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+        } else {
+        menu.style.display = 'block';
+        }
+    });
+
+    document.addEventListener('click', function () {
+        menu.style.display = 'none';
+    });
+</script>
+</body>
+</html>

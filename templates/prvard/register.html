@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prvard | Register</title>
+    <link rel="stylesheet" href="{% static 'prvard/css/register.css' %}">
+    <script src="{% static 'prvard/js/main.js' %}"></script>
+</head>
+<body>
+    <a href="{% url 'main:index' %}"><img src="{% static 'prvard/img/prroer.png' %}" alt="" class="img" width="100"></a>    <div class="content">
+        <div class="card">
+            <div class="title">Prvard</div>
+            <form action="{% url 'main:register' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="sign">Register</div>
+                <div class="message">{{message}}</div>
+
+                <div class="label">Username</div>
+                <input type="text" name="username" class="input">
+
+                <div class="label">Password</div>
+                <input type="password" name="password" class="input">
+
+                <div class="label">Confirmation</div>
+                <input type="password" name="confirmation" class="input">
+
+                <div class="label">Full Name</div>
+                <input type="text" name="name" class="input">
+
+                <div class="label">Profile Photo</div>
+                <input type="file" name="photo" class="input">
+
+                <input type="submit" value="Register" class="btn">
+                <a class="other" href="{% url 'main:login' %}">Sign In?</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

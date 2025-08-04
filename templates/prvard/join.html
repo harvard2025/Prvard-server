@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prvard | Join University</title>
+    <link rel="stylesheet" href="{% static 'prvard/css/style.css' %}">
+    <script src="{% static 'prvard/js/main.js' %}"></script>
+
+    
+</head>
+<body>
+    <img src="{% static 'prvard/img/prroer.png' %}" alt="" class="img" width="100">
+    <div class="profile-menu">
+        <a href="{% url 'main:index' %}">Home</a>
+        <a href="{% url 'main:logout' %}">Logout</a>
+    </div>
+    <div class="content">
+        <div class="prvard">Prvard</div>
+        <p class="title">Join Current University</p>
+        <form action="{% url 'main:join' %}" method="post">
+            {% csrf_token %}
+            {% if message %}
+                <div class="message">{{message}}</div>
+            {% endif %}
+            <input type="text" name="id" id="id" placeholder="ID">
+            <input type="submit" value="Join" class="btn">
+        </form>
+    </div>
+
+<script>
+    const profile = document.querySelector('.img');
+    const menu = document.querySelector('.profile-menu');
+
+    profile.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+        } else {
+        menu.style.display = 'block';
+        }
+    });
+
+    document.addEventListener('click', function () {
+        menu.style.display = 'none';
+    });
+</script>
+</body>
+</html>

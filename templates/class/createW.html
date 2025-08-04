@@ -1,0 +1,99 @@
+{% extends 'harvard/layout2.html' %}
+{% block head %}{% endblock %}
+
+
+{% block page_title %}
+Create {{type}}
+{% endblock %}
+{% block id %}{{ university.Prvard_id }}{% endblock %}
+{% block img %}{{ student.Photo.url }}{% endblock %}
+{% block body %}
+<style>
+    .all{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        margin-top: 50px;
+        padding: 20px 20px;
+        gap: 10px;
+        border: 1px solid black;
+        border-radius: 20px;
+        width: 50%;
+    }
+    .ii{
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        gap: 10px;
+       
+    }
+    .input{
+        width: 100%;
+        height: 30px;
+        font-size: 1.3em;
+        margin-bottom: 5px;
+        border: 1px solid black;
+        border-radius: 20px;
+        padding: 5px 10px ;
+    }
+    .T{
+        font-size: 1.4em;
+        font-weight: 500;
+        text-align: center;
+    }
+    .select{
+        margin-bottom: 40px;
+        font-weight: 400;
+        min-height: 40px;
+        width: 100%;
+    }
+    .btn-s{
+        background-color: #a51c30;
+        color: white;
+        width: 100%;
+        min-height: 40px;
+        border-radius: 10px;
+        font-size: 1em;
+        transition: 0.3s;
+    }
+    .btn-s:hover{
+        background-color: #91192b;
+        scale: 1.01;
+    }
+    .mark{
+        height: 150px;
+        font-size: 1em;
+        
+    }
+</style>
+
+<div class="all">
+    <form action="" method="post">
+        <h1 class="T">Add {{type}}</h1>
+        {% csrf_token %}
+        <div class="ii">
+            <div class="label">Title</div>
+            <input type="text" name="title" class="input name" placeholder="Title:">
+            <input type="hidden" name="id" value="{{class.id}}">
+        </div>
+
+        <div class="ii">
+        <div class="label labelm">Markdown</div>
+        <textarea name="mark" id="" class="input mark"></textarea>
+        </div>
+        <input type="submit" value="Next" class="btn-s">
+    </form>
+</div>
+
+
+{% endblock %}

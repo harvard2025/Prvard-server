@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harvard</title>
+    <link rel="stylesheet" href="{% static 'harvard/css/layout4.css' %}">
+    <link rel="stylesheet" href="{% static 'harvard/css/layout4.css' %}">
+    <script src="{% static 'prvard/js/main.js' %}"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="head">
+        <a href="{% url 'main:index' %}" class="c-r"><img src="{% static 'harvard/img/harvard.png' %}" alt="Harvard" width="120px"></a>
+        <div class="title">{% block page_title %}{% endblock %}</div>
+        <div class="c-l">
+            <p class="id">{% block id %}{% endblock %}</p>
+            <div class="profile">
+                <img src="{% block img %}{% endblock %}" alt="Harvard" width="50px" class="T">
+                    <div class="profile-menu">
+                        <a href="{% url 'main:profile' %}">Profile</a>
+                        <a href="{% url 'main:Lclass' class.id %}">Leave Class</a>
+                        {% if is_admin %}
+                            <a href="{% url 'main:Dclass' class.id %}">Deleat Class</a>
+                        {% endif %}
+                        {% if is_admin %}
+                            {% if lessoni %}
+                                <a href="{% url 'main:Eweek' lesson_id %}">Edit {{type}}</a>
+                            {% endif %}
+                        {% endif %}
+                        <a href="{% url 'main:logout' %}">Logout</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="slide">
+            <a href="{% url 'main:Opclass' class.id %}" class="{% if is_t == '1' %}in_t{% endif %}">Class</a>
+            <a href="{% url 'main:Mclass' class.id %}" class="{% if is_t == '2'%}in_t{% endif %}">Members</a>
+            <a href="{% url 'main:Cclass' class.id %}" class="{% if is_t == '3'%}in_t{% endif %}">Chat</a>
+            <a href="https://cs50.dev" class="{% if is_t == '4'%}in_t{% endif %}">Code Space</a>
+            <a href="https://github.com" class="{% if is_t == '5'%}in_t{% endif %}">Github</a>
+        </div>
+        <div class="body">{% block body %}{% endblock %}</div>
+    </div>
+
+<script>
+    const profile = document.querySelector('.profile');
+    const menu = document.querySelector('.profile-menu');
+
+    profile.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+        } else {
+        menu.style.display = 'block';
+        }
+    });
+
+    document.addEventListener('click', function () {
+        menu.style.display = 'none';
+    });
+</script>
+</body>
+</html>

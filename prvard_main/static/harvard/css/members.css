@@ -1,0 +1,7 @@
+.content{
+    background: url(../img/h-well.png) no-repeat;
+    background-size: cover;
+    background-position: top;
+    background-attachment: fixed;
+    background-color: black;
+}

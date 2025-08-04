@@ -1,0 +1,182 @@
+{% extends 'harvard/layout2.html' %}
+{% block head %}{% endblock %}
+
+
+{% block page_title %}
+{% if is_sender %}
+    {{ to.first_name }}
+{% else %}
+    {{ sender.first_name }}
+{% endif %}
+
+{% endblock %}
+{% block id %}{{ university.Prvard_id }}{% endblock %}
+{% block img %}{{ student.Photo.url }}{% endblock %}
+{% block body %}
+
+
+<style>
+    @keyframes fadeIn {
+        0%{
+            transform: translateY(-10px);
+            opacity: 0;
+        }
+        100%{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    @keyframes hr {
+        0%{
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        100%{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes pop {
+        0%{
+            scale: 1;
+        }
+        50%{
+            scale: 1.1;
+        }
+        100%{
+            scale: 1;
+        }
+    }
+    @keyframes inX {
+        0%{
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        100%{
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    @keyframes inX-r {
+        0%{
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        100%{
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    .delete{
+        background-color: brown;
+        text-decoration: none;
+        color: white;
+        padding: 10px 50px;
+        border: 1px solid black;
+        border-radius: 32px;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        transition: 0.3s;
+        animation: pop 0.3s;
+    }
+    .delete:hover{
+        scale: 1.1;
+    }
+    .date{
+        background-color: rgb(0, 0, 0);
+        text-decoration: none;
+        color: white;
+        padding: 10px 50px;
+        border: 1px solid black;
+        border-radius: 32px;
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        transition: 0.3s;
+        animation: inX 0.3s;
+    }
+body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: #121212;
+    color: #eee;
+    margin: 0;
+    padding: 0;
+}
+
+    .main {
+        padding-top: 60px;
+    }
+
+    .Title-d {
+        padding: 20px 40px;
+        background-color: #1c1c1c;
+        border-left: 6px solid #a51c30; /* Harvard Crimson */
+        color: #fff;
+        min-width: 40%;
+        border-radius: 8px;
+        font-size: 2.2em;
+        font-weight: bold;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        animation: inX-r 0.4s;
+    }
+
+    .subject {
+        margin-top: 20px;
+        padding: 40px 50px;
+        background-color: #1c1c1c;
+        color: #ddd;
+        min-width: 40%;
+        border-radius: 8px;
+        font-size: 1.3em;
+        width: 60%;
+        line-height: 1.7em;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        animation: inX 0.4s;
+    }
+
+
+.delete, .date {
+    font-family: inherit;
+    text-decoration: none;
+    font-size: 1em;
+    padding: 12px 30px;
+    border-radius: 32px;
+    border: none;
+    cursor: pointer;
+}
+
+.delete {
+    background: #a51c30; /* Harvard Crimson */
+    color: #fff;
+    bottom: 30px;
+    right: 30px;
+}
+
+.date {
+    background: #1c1c1c;
+    color: #ccc;
+    border: 1px solid #333;
+    bottom: 30px;
+    left: 30px;
+}
+
+.delete:hover, .date:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+</style>
+
+
+<div class="main">
+    <div class="Title-d">{{message.Title}}</div>
+    <div class="subject" style="white-space: pre-wrap;">{{ message.Subject }}</div>
+</div>
+{% if is_sender %}
+    <a href="{% url 'main:delete_m' message.id %}" class="delete">Delete</a>
+{% endif %}
+<div class="date">{{message.DateTime.date}}</div>
+
+{% endblock body %}

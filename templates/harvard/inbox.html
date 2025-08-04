@@ -1,0 +1,215 @@
+{% extends 'harvard/layout2.html' %}
+{% block head %}{% endblock %}
+
+
+{% block page_title %}
+{{ title }}
+{% endblock %}
+{% block id %}{{ university.Prvard_id }}{% endblock %}
+{% block img %}{{ student.Photo.url }}{% endblock %}
+{% block body %}
+
+
+<style>
+    @keyframes fadeIn {
+        0%{
+            transform: translateY(-10px);
+            opacity: 0;
+        }
+        100%{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    @keyframes hr {
+        0%{
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        100%{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes hr-l {
+        0%{
+            scale: 1.1;
+            opacity: 0;
+        }
+        100%{
+            scale: 1;
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes pop {
+        0%{
+            scale: 1;
+        }
+        50%{
+            scale: 1.1;
+        }
+        100%{
+            scale: 1;
+        }
+    }
+    @keyframes inX {
+        0%{
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        100%{
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    @keyframes inX-r {
+        0%{
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        100%{
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    .btn-f{
+        text-decoration: none;
+        max-width: 160px;
+        padding: 15px 20px;
+        background-color: #a51c30;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        right: 10px;
+        top: 5px;
+        margin: 130px 15px 0 0 ;
+        position: fixed;
+        font-size: 1.2em;
+        transition: 0.4s;
+    }
+    .btn-f:hover{
+        scale: 1.1;
+    }
+    .body-t{
+        padding-top: 100px;
+    }
+    .messages{
+        
+        display: flex;
+        flex-direction: column;
+    }
+    .message{
+        padding: 5px 0;
+        text-decoration: none;
+        background-color: black;
+        width: 100%;
+        color: white;
+        border: 1px solid white;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 5.2em;
+        transition: 0.2s;
+        animation: hr-l 0.4s;
+        border-radius: 7px;
+        border-left: 6px solid #a51c30;
+        
+        
+    }
+    .message:hover{
+        background-color: rgb(53, 53, 53);
+    }
+    .info{
+        font-size: 1em;
+        margin-left: 10px;
+
+    }
+    .Title-d{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .Title{
+        font-size: 1.7em;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .opened {
+    background-color: #1c1c1c;
+    background-color: #000000cd;  /* Read: black */
+    color: #e3e3e3c7;             /* Dim text */
+    }
+
+    .unopened {
+    background-color: #1c1c1c;
+    background-color: #000000cd; 
+    font-weight: bold;       /* Bold text */
+    border-left: 4px solid #0077ff;  /* Blue bar */
+    }
+
+    .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: #0077ff;
+        border-radius: 50%;
+        margin-left: 10px;
+    }
+
+    a.message {
+    display: block;
+    color: white; /* لون النص الطبيعي */
+    text-decoration: none;
+    }
+
+    a.message.opened {
+
+    background-color: black;
+    background-color: #1c1c1c;
+    }
+
+    a.message.unopened {
+    background-color: rgb(53, 53, 53);
+    }
+
+    a.message:hover {
+    background-color: #444;
+    color: rgb(255, 255, 255);
+    }
+
+
+</style>
+    <div class="body-t">
+
+        <a class="btn-f" href="{% url 'main:message'  %}">Send a message</a>
+
+        <div class="messages">
+            {% for message in messages %}
+            {% if message.active %}
+                <a class="message {% if message.opened %}opened{% else %}unopened{% endif %}" href="{% url 'main:show' message.id %}" >
+                    <div class="mail info">
+                        {% if title == "Inbox" %}
+                            {{ message.From }}
+                        {% else %}
+                            {{ message.To }}
+                        {% endif %}
+                            {% if not message.opened %}
+                                <span class="dot"></span>
+                            {% endif %}
+                    </div>
+                    <div class="Title-d">
+                        <div class="Title">{{ message.Title }}</div>
+                    </div>
+                    <div class="date info">{{message.DateTime.date}}</div>
+                </a>
+            {% endif %}
+            {% endfor %}
+            </div>
+    </div>
+
+
+
+{% endblock body %}
