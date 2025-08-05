@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -194,10 +196,6 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-INSTALLED_APPS += [
-    'cloudinary',
-    'cloudinary_storage',
-]
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dbahjhe3v',
