@@ -31,7 +31,9 @@ ALLOWED_HOSTS = [
     'harvard.ddns.net',            # Your No-IP domain
     'www.harvard.ddns.net',    
     "https://harvard.ddns.net",
-    "harvard.ddns.net",s
+    "harvard.ddns.net",
+    "prrer.ddns.net",
+    "https://prrer.ddns.net",
 ]
 
 # Application definition
