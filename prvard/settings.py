@@ -123,3 +123,53 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
+    
+    
+    
+    
+    
+    
+    
+    
+# Add this to the END of your settings.py file
+
+import os
+from django.core.management import execute_from_command_line
+
+def create_superuser():
+    """Create superuser if it doesn't exist"""
+    try:
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        
+        # Define superuser credentials
+        username = os.environ.get('DJANGO_SUPERUSER_USERNAME', 'admin')
+        email = os.environ.get('DJANGO_SUPERUSER_EMAIL', 'admin@example.com')
+        password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', 'admin123456')
+        
+        # Check if superuser exists
+        if not User.objects.filter(username=username).exists():
+            print(f"Creating superuser: {username}")
+            User.objects.create_superuser(
+                username=username,
+                email=email,
+                password=password
+            )
+            print("Superuser created successfully!")
+        else:
+            print(f"Superuser '{username}' already exists")
+            
+    except Exception as e:
+        print(f"Error creating superuser: {e}")
+
+# Only run this in production (on Render)
+if os.environ.get('RENDER'):
+    # Import Django and setup
+    import django
+    django.setup()
+    
+    # Create superuser after Django is ready
+    try:
+        create_superuser()
+    except:
+        pass  # Ignore errors during startup
