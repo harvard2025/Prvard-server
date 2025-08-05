@@ -19,7 +19,7 @@ class P_U_real(models.Model):
 class Student(models.Model):
     User_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="student")
     Points = models.IntegerField()
-    Photo = models.ImageField(upload_to='Photos/Students_Profiles_Photos/%y/%m/%d',)
+    Photo = models.ImageField(upload_to='profile_pics',)
     def __str__(self):
         return f"{self.id}: {self.User_id.first_name}"
 
@@ -41,8 +41,6 @@ class E_Message(models.Model):
 class Class(models.Model):
     Admin = models.ForeignKey(User, on_delete=models.CASCADE)
     Name = models.CharField(max_length=50)
-    # Description = models.CharField(max_length=200)
-    # Img = models.ImageField(upload_to='Photos/Classes_IMG/%y/%m/%d',)
 
 class Content(models.Model):
     Class = models.ForeignKey(Class, on_delete=models.CASCADE)

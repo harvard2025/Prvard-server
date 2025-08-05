@@ -173,3 +173,36 @@ if os.environ.get('RENDER'):
         create_superuser()
     except:
         pass  # Ignore errors during startup
+        
+        
+    
+    
+# import cloudinary
+# import cloudinary.uploader
+# import cloudinary.api
+# 
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': 'dbahjhe3v',
+#     'API_KEY': '824188794694111',
+#     'API_SECRET': 'fQz2eidqKwiXNPhQ',
+# }
+# 
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# 
+
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+INSTALLED_APPS += [
+    'cloudinary',
+    'cloudinary_storage',
+]
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dbahjhe3v',
+    'API_KEY': '824188794694111',
+    'API_SECRET': 'fQz2eidqKwiXNPhQ',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
