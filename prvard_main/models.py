@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 # <<<<<<<<<<<<<<<<<<\\\\\\\\\\    University   //////////>>>>>>>>>>>>>>>>> #
@@ -19,7 +20,7 @@ class P_U_real(models.Model):
 class Student(models.Model):
     User_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="student")
     Points = models.IntegerField()
-    Photo = models.ImageField(upload_to='profile_pics',)
+    Photo = CloudinaryField('image')
     def __str__(self):
         return f"{self.id}: {self.User_id.first_name}"
 

@@ -1,17 +1,25 @@
 """
 Django settings for prvard project.
 """
+
+
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# 1) عرّف BASE_DIR أولاً
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-+)3j_k9c2oo)v^3ttz(j-a_wvn^c8w=!4)ysmnl5t#6ylg2gwz')
+# 2) حمّل متغيّرات البيئة من env.env
+load_dotenv(BASE_DIR / 'env.env')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+
+# 3) الآن يمكنك استخدام os.getenv() بأمان
+SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret')
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
+
+
+
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -129,7 +137,7 @@ if not DEBUG:
     
     
     
-    
+
     
     
     
@@ -179,28 +187,12 @@ if os.environ.get('RENDER'):
         
     
     
-# import cloudinary
-# import cloudinary.uploader
-# import cloudinary.api
-# 
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': 'dbahjhe3v',
-#     'API_KEY': '824188794694111',
-#     'API_SECRET': 'fQz2eidqKwiXNPhQ',
-# }
-# 
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-# 
-
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
-
-
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dbahjhe3v',
-    'API_KEY': '824188794694111',
-    'API_SECRET': 'fQz2eidqKwiXNPhQ',
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY':    os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
 
+# اجعل Django يستخدم Cloudinary لتخزين الملفات المرفوعة
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    

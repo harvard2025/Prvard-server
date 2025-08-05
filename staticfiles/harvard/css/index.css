@@ -1,0 +1,365 @@
+:root {
+  --harvard-red: #A51C30;
+  --harvard-black: #000000;
+  --harvard-gray: #F5F5F5;
+  --harvard-text: #333333;
+}
+
+@keyframes fadeIn {
+    0%{
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes hr {
+    0%{
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pop {
+    0%{
+        scale: 1;
+    }
+    50%{
+        scale: 1.1;
+    }
+    100%{
+        scale: 1;
+    }
+}
+@keyframes inX {
+    0%{
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+body{
+    box-sizing: border-box;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    
+
+}
+
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+/* <<<<<///////////////// HEAD ///////////////////>>> */
+.head{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding:10px 20px;
+    color: white;
+    height: 100px;
+    z-index: 999;
+}
+.h-d-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.h-btn{
+    background-color: rgb(46, 45, 41);
+    color: white;
+    border: none;
+    border-radius: 32px;
+    padding: 15px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.h-btn:hover{
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+.h-p{
+    font-size: 1.25em;
+}
+
+
+/* <<<<<///////////////// CONTENT ///////////////////>>> */
+.content{
+    width: 100%;
+    margin-top: 120px;
+    min-height: 40vh;
+    background: url(../img/h-well.png) no-repeat;
+    background-size: cover;
+    background-position: top;
+    background-attachment: fixed;
+    left: 0;
+    right: 0;
+    /* animation: fadeIn 0.3s; */
+
+}
+/* .c-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+} */
+.c-l{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    margin-top: 10px;
+    gap: 20px;
+    position: absolute;
+    right: 0;
+    z-index: 998;
+}
+.c-r{
+    margin-top: 5px;
+    position: absolute;
+    left: 0;
+    z-index: 998;
+    cursor: pointer;
+    animation: pop 0.3s;
+}
+
+.profile {
+  width: 70px;     
+  height: 70px;     
+  border-radius: 50%; 
+  overflow: hidden;  
+
+    border: 1px solid rgb(0, 0, 0);
+    border-image-outset: 50px;
+}
+
+
+.T {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    animation: fadeIn 0.3s;
+}
+
+
+.c-p{
+    border: 1px solid black;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+
+.c-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    font-size: 3em;
+    font-style: italic;
+    font-weight: 200;
+    opacity: 0.6;
+    animation: hr 1s;
+}
+
+
+main{
+    border: 1px solid black;
+    min-height: 45vh;
+    display: flex;
+    border-bottom: none;
+    
+}
+.slide{
+    background-color: black;
+    width: 25%;
+    z-index: 997;
+}
+.navs{
+    list-style-type: none;
+    list-style: none;
+    color: white;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    
+}
+.navs > a{
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 10px;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    height: 50px;
+    position: relative;
+    left: 0;
+    font-size: 1.2em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.navs > a:hover{
+    background-color: rgb(42, 42, 42);
+}
+
+.classes{
+    width: 100%;
+
+}
+.m-title{
+    text-align: center;
+    font-weight: 300;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid black;
+}
+.cards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card{
+    border: 1px solid rgb(32, 32, 32);
+    width: 30%;
+
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    margin-bottom: 10px;
+    animation: inX 0.3s;
+
+    
+    transition: 0.3s;
+    border: 1px solid rgb(0, 0, 0);
+    box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.233);
+    background: linear-gradient(white, rgb(237, 237, 237));
+}
+.card:hover{
+    border-left: 5px solid #a51c30;
+    transform: translateY(-5px);
+    
+}
+
+.card-title{
+    font-size: 1.6em;
+    margin: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.card-id{
+    margin-bottom: 10px;
+}
+.card-btn{
+    text-align: center;
+    text-decoration: none;
+    background-color: #a51c30;
+    color: white;
+    padding: 10px 0 10px 0;
+    width: 100%;
+    height: 20px;
+    border-radius: 0 0 32px  32px;
+    transition: 0.2s;
+    background: linear-gradient(#a51c30, #72111f);
+    
+}
+.card-btn:hover{
+    background-color: rgb(83, 83, 83);
+    background-color: #721120bb;
+    opacity: 0.8;
+    
+}
+
+.classe-btn{
+    text-decoration: none;
+    color: white;
+    background-color: black;
+    border: none;
+    border-radius: 32px;
+    position: absolute;
+    right: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 10px 20px;
+    transition: 0.2s;
+}
+.classe-btn:hover{
+    background-color: rgb(80, 80, 80);
+}
+
+
+
+
+
+.profile-menu {
+  display: none; /* مخفية افتراضي */
+  position: absolute;
+  top: 80px;  /* تحت الصورة */
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 999;
+  min-width: 120px;
+}
+
+.profile-menu a {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-menu a:hover {
+  background: #f5f5f5;
+}
+
+
+.not{
+    font-weight: 100;
+    font-family: cursive;
+    opacity: 0.6;
+}
+
+.card {
+  border-radius: 4px;
+  background: white;
+  border: 1px solid #ddd;
+  box-shadow: none;
+  padding: 20px;
+}
+.card-btn {
+  background: var(--harvard-red);
+  border-radius: 4px;
+}
+

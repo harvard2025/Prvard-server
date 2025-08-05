@@ -1,0 +1,233 @@
+:root {
+  --harvard-red: #A51C30;
+  --harvard-black: #000000;
+  --harvard-gray: #F5F5F5;
+  --harvard-text: #333333;
+}
+@keyframes fadeIn {
+    0%{
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes hr {
+    0%{
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pop {
+    0%{
+        scale: 1;
+    }
+    50%{
+        scale: 1.1;
+    }
+    100%{
+        scale: 1;
+    }
+}
+@keyframes inX {
+    0%{
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+body{
+    box-sizing: border-box;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    
+
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* <<<<<///////////////// HEAD ///////////////////>>> */
+.head{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding:10px 20px;
+    color: white;
+    height: 100px;
+    z-index: 999;
+    border-bottom: 1px solid white;
+    
+}
+
+
+
+
+/* .c-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+} */
+.c-l{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    margin-top: 10px;
+    gap: 20px;
+    position: absolute;
+    right: 0;
+    z-index: 998;
+}
+.c-r{
+    margin-top: 5px;
+    position: absolute;
+    left: 0;
+    z-index: 998;
+    cursor: pointer;
+    animation: pop 0.3s;
+}
+.c-r > img{
+    width: 100px;
+} 
+
+.profile {
+  width: 70px;     
+  height: 70px;     
+  border-radius: 50%; 
+  overflow: hidden;  
+
+    border: 1px solid rgb(0, 0, 0);
+    border-image-outset: 50px;
+}
+
+
+.T {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    animation: fadeIn 0.3s;
+}
+
+
+.id{
+    border: 1px solid rgb(255, 255, 255);
+    padding: 10px 20px;
+    font-size: 1.1em;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 10px;
+}
+
+
+.title{
+    text-align: center;
+    color: white;
+    font-size: 2.4em;
+    width: 100%;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    animation: hr 1s;
+}
+
+
+.content{
+    margin-top: 120px;
+
+    
+}
+
+
+.profile-menu {
+  display: none; /* مخفية افتراضي */
+  position: absolute;
+  top: 80px;  /* تحت الصورة */
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 999;
+  min-width: 120px;
+}
+
+.profile-menu a {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-menu a:hover {
+  background: #f5f5f5;
+}
+
+
+.card{
+    border: 1px solid black;
+    width: 20%;
+
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    margin-bottom: 10px;
+    animation: inX 0.3s;
+}
+
+.card-title{
+    font-size: 1.6em;
+    margin: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.card-id{
+    margin-bottom: 10px;
+}
+.card-btn{
+    text-align: center;
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    padding: 10px 0 10px 0;
+    width: 100%;
+    height: 20px;
+    border-radius: 0 0 32px  32px;
+    transition: 0.2s;
+    
+}
+.card-btn:hover{
+    background-color: rgb(83, 83, 83);
+}
+
+
+.content{
+    background: url(../img/h-well.png) no-repeat;
+    background-size: cover;
+    background-position: top;
+    background-attachment: fixed;
+    margin-top: 120px;
+    min-height: 100vh;
+}
