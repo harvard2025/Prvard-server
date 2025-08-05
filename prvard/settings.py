@@ -19,8 +19,9 @@ ALLOWED_HOSTS = [
     '.onrender.com',  # Allow all Render subdomains
     'prvard.onrender.com',  # Your Render URL
     'prvard.ddns.net',  # Your No-IP domain
-    'www.harvard.ddns.net',
     'www.prvard.ddns.net',
+    'harvard.ddns.net',            # Your No-IP domain
+    'www.harvard.ddns.net',    
 ]
 
 # Application definition
