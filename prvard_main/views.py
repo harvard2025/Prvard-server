@@ -8,6 +8,10 @@ import markdown
 import random
 from django.utils.safestring import mark_safe
 # Create your views here.
+
+def google(request):
+	return render(request, "googlea6afcf7ab94ba95c.html")
+
 def index(request):
     if request.user.is_authenticated:
         # if user is loged in.
