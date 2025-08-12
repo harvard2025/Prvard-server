@@ -18,22 +18,22 @@ load_dotenv(BASE_DIR / 'env.env')
 SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-DEBUG = True
+
 
 
 ALLOWED_HOSTS = [
-#     'localhost',
-#     '127.0.0.1',
-#     '.onrender.com',  # Allow all Render subdomains
-#     'prvard.onrender.com',  # Your Render URL
-#     'prvard.ddns.net',  # Your No-IP domain
-#     'www.prvard.ddns.net',
-#     'harvard.ddns.net',            # Your No-IP domain
-#     'www.harvard.ddns.net',    
-#     "https://harvard.ddns.net",
-#     "harvard.ddns.net",
-#     "prrer.ddns.net",
-#     "https://prrer.ddns.net",
+    'localhost',
+    '127.0.0.1',
+    '.onrender.com',  # Allow all Render subdomains
+    'prvard.onrender.com',  # Your Render URL
+    'prvard.ddns.net',  # Your No-IP domain
+    'www.prvard.ddns.net',
+    'harvard.ddns.net',            # Your No-IP domain
+    'www.harvard.ddns.net',    
+    "https://harvard.ddns.net",
+    "harvard.ddns.net",
+    "prrer.ddns.net",
+    "https://prrer.ddns.net",
 ]
 
 # Application definition
