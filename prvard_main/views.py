@@ -1068,11 +1068,13 @@ def ai(request, id):
         system_prompt = f"""You work for Prroer is an programming and tech company, but you work in 'Prvard', **Prvard** is a full-featured educational platform that manages your courses and connects students in a university-like environment. in prvard there are classes. you now in {class1.Name}, So if you want to know more about this class this is all {Type} in this Class:
         """
         for lesson in lessons:
-            system_prompt += f"{Type} {lesson.Number}: {lesson.Title} and is the content of the {Type}: {lesson.Markdown}.  "
+            system_prompt += f"{Type} {lesson.Number}: {lesson.Title}  and is the content of the {Type} (links inside this lesson can be used to get detailed info).: {lesson.Markdown}.  "
         
         prompt = system_prompt + f"you should check all links and titles in lessons, if user ask you about any lesson search in this lesson and search in the links to answer his answer (Like if the user ask to explain any lesson go to the lesson and check all lesson's links and enter it and take the informaions and do or ask what he ask you),now there are a student ask you for a question answer his question, This is his question: {user_prompt}"
         print(system_prompt)
 
+		prompt = system_prompt + f"If the student asks about any lesson, do not just use the brief lesson description. Instead, use the links in the lesson to find the best possible answer by checking official or detailed resources (like official CS50 lectures, websites, or documentation). For example, if the lesson is about CS50, answer using the official CS50 knowledge, videos, and materials, not just the markdown content. Now, a student asks: {user_prompt} Answer with the best possible, detailed explanation by leveraging external linked resources."
+		
         client = genai.Client(api_key="AIzaSyDp5LqE5xqmMUCauBmHyFZbuA-qJPCnu2Q")
         response = client.models.generate_content(
             model="gemini-2.5-flash",
