@@ -1120,7 +1120,3 @@ def ai(request, id):
         'is_t': "4",
         "is_admin": class1.Admin == request.user,
     })
-<<<<<<< HEAD
-=======
-
->>>>>>> ed50696
