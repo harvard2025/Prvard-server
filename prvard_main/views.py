@@ -1075,7 +1075,7 @@ def ai(request, id):
         client = genai.Client(api_key="AIzaSyDp5LqE5xqmMUCauBmHyFZbuA-qJPCnu2Q")
         response = client.models.generate_content(
             model="gemini-2.5-flash",
-            contents=prompt
+            contents=user_prompt
         )
         
         user = request.user
