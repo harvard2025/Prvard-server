@@ -1053,9 +1053,12 @@ def add_message(request, id):
     message_n.save()
     return redirect("main:Cclass", id)
     
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> ed50696
 def ai(request, id):
     if request.method == "POST":
         user_prompt = request.POST.get("user_prompt")
@@ -1117,3 +1120,7 @@ def ai(request, id):
         'is_t': "4",
         "is_admin": class1.Admin == request.user,
     })
+<<<<<<< HEAD
+=======
+
+>>>>>>> ed50696
