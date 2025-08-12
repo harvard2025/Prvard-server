@@ -36,7 +36,8 @@ urlpatterns = [
     path('Chat/Class/<int:id>', views.Chat1, name='Cclass'),
     path('Add/Message/Class/<int:id>', views.add_message, name='ACclass'),
     path('Delete/Lesson/<int:id>', views.Delete_L, name='DWclass'),
-    path("googlea6afcf7ab94ba95c.html", views.google, name="google")
+    path("googlea6afcf7ab94ba95c.html", views.google, name="google"),
+    path('AI/Prroer/<int:id>', views.ai, name='ai'),
 
 
 ]

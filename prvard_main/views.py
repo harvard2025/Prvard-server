@@ -1052,3 +1052,68 @@ def add_message(request, id):
     message_n = Chat_Message.objects.create(Class=class1, Student=request.user, Message=request.POST.get("message"))
     message_n.save()
     return redirect("main:Cclass", id)
+    
+
+
+
+def ai(request, id):
+    if request.method == "POST":
+        user_prompt = request.POST.get("user_prompt")
+
+        class1 = Class.objects.get(pk=id)
+        content = Content.objects.get(Class=class1)
+        Type = content.Type
+        lessons = Weeks.objects.filter(Content=content)
+        
+        system_prompt = f"""You work for Prroer is an programming and tech company, but you work in 'Prvard', **Prvard** is a full-featured educational platform that manages your courses and connects students in a university-like environment. in prvard there are classes. you now in {class1.Name}, So if you want to know more about this class this is all {Type} in this Class:
+        """
+        for lesson in lessons:
+            system_prompt += f"{Type} {lesson.Number}: {lesson.Title} and is the content of the {Type}: {lesson.Markdown}.  "
+        
+        prompt = system_prompt + f"you should check all links and titles in lessons, if user ask you about any lesson search in this lesson and search in the links to answer his answer (Like if the user ask to explain any lesson go to the lesson and check all lesson's links and enter it and take the informaions and do or ask what he ask you),now there are a student ask you for a question answer his question, This is his question: {user_prompt}"
+        print(system_prompt)
+
+        client = genai.Client(api_key="AIzaSyDp5LqE5xqmMUCauBmHyFZbuA-qJPCnu2Q")
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
+        )
+        
+        user = request.user
+        university = ""
+        reals = P_U_real.objects.all()
+        for real in reals:
+            if real.Student == user:
+                university = real.University
+        if university == "":
+            return redirect("main:index")
+        return render(request, "class/ai.html", {
+            "university": university,
+            'user': user,
+            "student": Student.objects.get(User_id=user),
+            "class": class1,
+            "type": Type,
+            'is_t': "4",
+            "is_admin": class1.Admin == request.user,
+            "response": markdown.markdown(response.text),
+        })
+    # <<<<<<<<<<<<<<< Just open the form page >>>>>>>>>>>>>>>>>>>
+    user = request.user
+    university = ""
+    reals = P_U_real.objects.all()
+    for real in reals:
+        if real.Student == user:
+            university = real.University
+    if university == "":
+        return redirect("main:index")
+    class1 = Class.objects.get(pk=id)
+    Type = Content.objects.get(Class=class1).Type
+    return render(request, "class/ai.html", {
+        "university": university,
+        'user': user,
+        "student": Student.objects.get(User_id=user),
+        "class": class1,
+        "type": Type,
+        'is_t': "4",
+        "is_admin": class1.Admin == request.user,
+    })
