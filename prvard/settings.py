@@ -19,7 +19,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',

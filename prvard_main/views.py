@@ -7,6 +7,7 @@ from datetime import datetime
 import markdown
 import random
 from django.utils.safestring import mark_safe
+from google import genai
 # Create your views here.
 
 def google(request):
