@@ -619,7 +619,7 @@ def Delete_L(request, id):
         return redirect("main:index") 
     if not id:
         return redirect("main:index")
-    lesson = Weeks.objects.get(pk=id).order_by('Number')
+    lesson = Weeks.objects.get(pk=id)
     content = lesson.Content
     class1 = content.Class
     lesson.delete()
@@ -886,7 +886,7 @@ def Eweek(request, id):
         title = request.POST.get("title")
         mark = request.POST.get("mark")
         id1 = request.POST.get("id")
-        lesson = Weeks.objects.get(pk=id).order_by('Number')
+        lesson = Weeks.objects.get(pk=id)
         content = lesson.Content
         class1 = content.Class
 
@@ -904,7 +904,7 @@ def Eweek(request, id):
             university = real.University
     if university == "":
         return redirect("main:index")
-    lesson = Weeks.objects.get(pk=id).order_by('Number')
+    lesson = Weeks.objects.get(pk=id)
     content = lesson.Content
     class1 = content.Class
     Type = Content.objects.get(Class=class1).Type
@@ -940,7 +940,7 @@ def ShowW(request, id):
     if user.id == request.user.id:
         other = False
 
-    lesson = Weeks.objects.get(pk=id).order_by('Number')
+    lesson = Weeks.objects.get(pk=id)
     content = lesson.Content
     class1 = content.Class
     user = request.user
