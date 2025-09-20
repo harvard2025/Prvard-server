@@ -1065,7 +1065,7 @@ def ai(request, id):
         Type = content.Type
         lessons = Weeks.objects.filter(Content=content)
         
-        system_prompt = f"""You work for Prroer is an programming and tech company, but you work in 'Prvard', **Prvard** is a full-featured educational platform that manages your courses and connects students in a university-like environment. in prvard there are classes. you now in {class1.Name}, So if you want to know more about this class this is all {Type} in this Class:
+        system_prompt = f"""You work for Prroer is an programming and tech company, but you work in 'Prvard', **Prvard** is a full-featured educational platform that manages your courses and connects students in a university-like environment. the user who ask you now named: {request.user.first_name} , in prvard there are classes. you now in {class1.Name}, So if you want to know more about this class this is all {Type} in this Class:
         """
         for lesson in lessons:
             system_prompt += f"{Type} {lesson.Number}: {lesson.Title}  and is the content of the {Type} (links inside this lesson can be used to get detailed info).: {lesson.Markdown}.  "
