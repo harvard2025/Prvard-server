@@ -619,7 +619,7 @@ def Delete_L(request, id):
         return redirect("main:index") 
     if not id:
         return redirect("main:index")
-    lesson = Weeks.objects.get(pk=id)
+    lesson = Weeks.objects.get(pk=id).order_by('Number')
     content = lesson.Content
     class1 = content.Class
     lesson.delete()
@@ -660,8 +660,7 @@ def Open_Class(request, id):
         }) 
     user = request.user
     Type = Content.objects.get(Class=class1).Type
-    Weekss = Weeks.objects.filter(Content=Content.objects.get(Class=class1))
-    print(Weekss)
+    Weekss = Weeks.objects.filter(Content=Content.objects.get(Class=class1)).order_by('Number')
 
         
 
@@ -675,7 +674,7 @@ def Open_Class(request, id):
         'class':class1,
         "type": Type,
         'is_t': "1",
-        "lessons": Weekss,
+        "lessons": Weekss.order_by('Number'),
         "is_admin": class1.Admin == request.user,
         
     })
@@ -848,7 +847,7 @@ def Cweek(request, id):
         class1 = Class.objects.get(pk=id1)
         content = Content.objects.get(Class=class1)
         
-        reals = Weeks.objects.filter(Content=content)
+        reals = Weeks.objects.filter(Content=content).order_by('Number')
         num = None
         for real in reals:
             num = real.Number 
@@ -887,7 +886,7 @@ def Eweek(request, id):
         title = request.POST.get("title")
         mark = request.POST.get("mark")
         id1 = request.POST.get("id")
-        lesson = Weeks.objects.get(pk=id)
+        lesson = Weeks.objects.get(pk=id).order_by('Number')
         content = lesson.Content
         class1 = content.Class
 
@@ -905,7 +904,7 @@ def Eweek(request, id):
             university = real.University
     if university == "":
         return redirect("main:index")
-    lesson = Weeks.objects.get(pk=id)
+    lesson = Weeks.objects.get(pk=id).order_by('Number')
     content = lesson.Content
     class1 = content.Class
     Type = Content.objects.get(Class=class1).Type
@@ -941,7 +940,7 @@ def ShowW(request, id):
     if user.id == request.user.id:
         other = False
 
-    lesson = Weeks.objects.get(pk=id)
+    lesson = Weeks.objects.get(pk=id).order_by('Number')
     content = lesson.Content
     class1 = content.Class
     user = request.user
@@ -1063,7 +1062,7 @@ def ai(request, id):
         class1 = Class.objects.get(pk=id)
         content = Content.objects.get(Class=class1)
         Type = content.Type
-        lessons = Weeks.objects.filter(Content=content)
+        lessons = Weeks.objects.filter(Content=content).order_by('Number')
         
         system_prompt = f"""You work for Prroer is an programming and tech company, but you work in 'Prvard', **Prvard** is a full-featured educational platform that manages your courses and connects students in a university-like environment. the user who ask you now named: {request.user.first_name} , in prvard there are classes. you now in {class1.Name}, So if you want to know more about this class this is all {Type} in this Class:
         """
