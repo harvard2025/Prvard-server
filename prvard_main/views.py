@@ -7,6 +7,7 @@ from datetime import datetime
 import markdown
 import random
 from django.utils.safestring import mark_safe
+import os
 from google import genai
 # Create your views here.
 
@@ -1074,7 +1075,7 @@ def ai(request, id):
 
         prompt = system_prompt + f"If the student asks about any lesson, do not just use the brief lesson description. Instead, use the links in the lesson to find the best possible answer by checking official or detailed resources (like official CS50 lectures, websites, or documentation). For example, if the lesson is about CS50, answer using the official CS50 knowledge, videos, and materials, not just the markdown content. Now, a student asks: {user_prompt} Answer with the best possible, detailed explanation by leveraging external linked resources."
 		
-        client = genai.Client(api_key="AIzaSyDp5LqE5xqmMUCauBmHyFZbuA-qJPCnu2Q")
+        client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
         response = client.models.generate_content(
             model="gemini-2.5-flash",
             contents=prompt
